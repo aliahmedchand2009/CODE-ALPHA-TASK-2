@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculator</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 100vh;
+        margin: 0;
+        background-color: #e0f7fa;
+      }
+
+      .main-header {
+        width: 100%;
+        background-color: #000;
+        color: #fff;
+        padding: 10px 0;
+        text-align: center;
+        font-size: 28px;
+        font-weight: bold;
+      }
+
+      .calculator {
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        width: 300px;
+        margin-top: 20px;
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 24px;
+        font-weight: bold;
+        color: #00796b;
+      }
+
+      .display {
+        width: 100%;
+        height: 50px;
+        border: none;
+        margin-bottom: 20px;
+        font-size: 1.5rem;
+        text-align: right;
+        padding: 10px;
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+        background-color: #e0f2f1;
+      }
+
+      .buttons {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+      }
+
+      .button {
+        padding: 15px;
+        font-size: 1rem;
+        border: none;
+        border-radius: 5px;
+        background-color: #007bff;
+        color: white;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      .button:hover {
+        background-color: #0056b3;
+      }
+
+      .button.operator {
+        background-color: #ffc107;
+        color: black;
+      }
+
+      .button.operator:hover {
+        background-color: #e0a800;
+      }
+
+      .button.clear {
+        background-color: #dc3545;
+      }
+
+      .button.clear:hover {
+        background-color: #c82333;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main-header">CODE ALPHA</div>
+
+    <div class="calculator">
+      <div class="header">CALCULATOR</div>
+      <input type="text" id="display" class="display" disabled />
+      <div class="buttons">
+        <button class="button" onclick="appendNumber('7')">7</button>
+        <button class="button" onclick="appendNumber('8')">8</button>
+        <button class="button" onclick="appendNumber('9')">9</button>
+        <button class="button operator" onclick="setOperator('/')">
+          &#247;
+        </button>
+
+        <button class="button" onclick="appendNumber('4')">4</button>
+        <button class="button" onclick="appendNumber('5')">5</button>
+        <button class="button" onclick="appendNumber('6')">6</button>
+        <button class="button operator" onclick="setOperator('*')">
+          &#215;
+        </button>
+
+        <button class="button" onclick="appendNumber('1')">1</button>
+        <button class="button" onclick="appendNumber('2')">2</button>
+        <button class="button" onclick="appendNumber('3')">3</button>
+        <button class="button operator" onclick="setOperator('-')">
+          &#8722;
+        </button>
+
+        <button class="button" onclick="appendNumber('0')">0</button>
+        <button class="button clear" onclick="clearDisplay()">C</button>
+        <button class="button" onclick="calculateResult()">=</button>
+        <button class="button operator" onclick="setOperator('+')">
+          &#43;
+        </button>
+      </div>
+    </div>
+
+    <script>
+      let display = document.getElementById("display");
+      let firstNumber = "";
+      let operator = "";
+
+      function appendNumber(number) {
+        display.value += number;
+      }
+
+      function setOperator(op) {
+        if (display.value === "") return;
+        firstNumber = display.value;
+        operator = op;
+        display.value = "";
+      }
+
+      function calculateResult() {
+        if (display.value === "" || firstNumber === "" || operator === "")
+          return;
+        let secondNumber = display.value;
+        let result;
+        switch (operator) {
+          case "+":
+            result = parseFloat(firstNumber) + parseFloat(secondNumber);
+            break;
+          case "-":
+            result = parseFloat(firstNumber) - parseFloat(secondNumber);
+            break;
+          case "*":
+            result = parseFloat(firstNumber) * parseFloat(secondNumber);
+            break;
+          case "/":
+            result = parseFloat(firstNumber) / parseFloat(secondNumber);
+            break;
+          default:
+            return;
+        }
+        display.value = result;
+        firstNumber = "";
+        operator = "";
+      }
+
+      function clearDisplay() {
+        display.value = "";
+        firstNumber = "";
+        operator = "";
+      }
+    </script>
+  </body>
+</html>
